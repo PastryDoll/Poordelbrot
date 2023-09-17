@@ -21,7 +21,6 @@ void main()
 
     vec2 c = (gl_FragCoord.xy / vec2(1000.0, 1000.0) - 1.0) * (3.0 / u_Zoom) + u_Offset;
 
-    // Optimization: Use squared distances for iterations
     float x = 0.0;
     float y = 0.0;
     float x2 = 0.0;
@@ -30,14 +29,12 @@ void main()
 
     int iterations = 0;
 
-    // Optimization: Precalculate constants
     float xInit = c.x;
     float yInit = c.y;
     float threshold = 4.0;
 
     while (iterations < Maxiterations && x2 + y2 < threshold)
     {
-        // Optimization: Reuse previous values
         y = 2.0 * x * y + yInit;
         x = x2 - y2 + xInit;
         x2 = x * x;
