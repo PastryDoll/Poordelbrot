@@ -120,10 +120,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
         if (key == GLFW_KEY_UP) {
             // Zoom in (reduce zoom value)
-            zoom -= 5.0f;
+            zoom -= 500.0f;
         } else if (key == GLFW_KEY_DOWN) {
             // Zoom out (increase zoom value)
-            zoom += 5.0f;
+            zoom += 500.0f;
         } else if (key == GLFW_KEY_LEFT) {
             // Move left
             offsetX -= 0.01f;

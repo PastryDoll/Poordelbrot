@@ -26,6 +26,7 @@ void main()
     float y = 0.0;
     float x2 = 0.0;
     float y2 = 0.0;
+    int Maxiterations = 400;
 
     int iterations = 0;
 
@@ -34,7 +35,7 @@ void main()
     float yInit = c.y;
     float threshold = 4.0;
 
-    while (iterations < 100 && x2 + y2 < threshold)
+    while (iterations < Maxiterations && x2 + y2 < threshold)
     {
         // Optimization: Reuse previous values
         y = 2.0 * x * y + yInit;
@@ -44,7 +45,7 @@ void main()
 
         iterations++;
     }
-    float t = float(iterations) / float(100);
+    float t = float(iterations) / float(Maxiterations);
     fragColor = vec4(t, t, t, 1.0);
          
     }
