@@ -1,0 +1,51 @@
+ #shader vertex
+ #version 410 core
+ 
+ layout(location = 0) in vec4 position;
+
+void main()
+{
+   gl_Position = position;
+}
+ 
+ #shader fragment
+ #version 410 core
+ 
+ layout(location = 0) out vec4 fragColor;
+
+uniform float u_Zoom; // Zoom level
+uniform vec2 u_Offset; // Offset for panning
+
+void main()
+    {
+
+    vec2 c = (gl_FragCoord.xy / vec2(1000.0, 1000.0) - 1.0) * (3.0 / u_Zoom) + u_Offset;
+
+    // Optimization: Use squared distances for iterations
+    float x = 0.0;
+    float y = 0.0;
+    float x2 = 0.0;
+    float y2 = 0.0;
+
+    int iterations = 0;
+
+    // Optimization: Precalculate constants
+    float xInit = c.x;
+    float yInit = c.y;
+    float threshold = 4.0;
+
+    while (iterations < 100 && x2 + y2 < threshold)
+    {
+        // Optimization: Reuse previous values
+        y = 2.0 * x * y + yInit;
+        x = x2 - y2 + xInit;
+        x2 = x * x;
+        y2 = y * y;
+
+        iterations++;
+    }
+    float t = float(iterations) / float(100);
+    fragColor = vec4(t, t, t, 1.0);
+         
+    }
+
